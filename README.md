@@ -15,3 +15,6 @@ This is a simple Python script to scrape book data from [books.toscrape.com](htt
 
 ```bash
 pip install -r requirements.txt
+
+## Usage
+py book_scraper.py
