@@ -103,8 +103,8 @@ Pull requests are welcome! Feel free to fork the project and submit suggestions 
 
 Feel free to connect:
 
-* 📧 [ym1190732@gmail.com](mailto:ym1190732@gmail.com)
-* 🔗 [LinkedIn](اhttps://www.linkedin.com/in/youssef-mohamed-b37a8427b)
+* 📧 [Gmail](mailto:ym1190732@gmail.com)
+* 🔗 [LinkedIn](https://www.linkedin.com/in/youssef-mohamed-b37a8427b)
 * 📘 [Facebook](https://www.facebook.com/yousef.mohamed.488556)
 
 ---
