@@ -3,11 +3,12 @@ import pandas as pd
 import time
 from bs4 import BeautifulSoup
 
+
 all_books_details = []
 
 for page in range(1, 4):
     url = f"https://books.toscrape.com/catalogue/page-{page}.html"
-    print(f"Scraping Page {page}...")
+    print(f"📄 Scraping Page {page}...")
     
     try:
         response = requests.get(url)
@@ -23,15 +24,26 @@ for page in range(1, 4):
             title = book.h3.a['title']
             price = book.find('p', class_="price_color").text.strip()
             availability = book.find('p', class_="instock availability").text.strip()
+            
+            rating_tag = book.find('p', class_="star-rating")
+            rating_class = rating_tag.get('class')
+            rating_text = [c for c in rating_class if c != 'star-rating'][0]
+            ratings_map = {
+                "One": 1,
+                "Two": 2,
+                "Three": 3,
+                "Four": 4,
+                "Five": 5
+            }
+            rating = ratings_map.get(rating_text, 0)
+
             relative_url = book.h3.a['href']
             full_url = "https://books.toscrape.com/catalogue/" + relative_url.replace('../../../', '')
 
-            # Get book details page
             detail_response = requests.get(full_url)
             detail_response.raise_for_status()
             detail_soup = BeautifulSoup(detail_response.text, 'lxml')
 
-            # Extract details safely
             desc = detail_soup.select_one('#product_description + p')
             description = desc.text.strip() if desc else "No description"
 
@@ -49,11 +61,11 @@ for page in range(1, 4):
             availability_in_book = extract_text("Availability")
             number_of_reviews = extract_text("Number of reviews")
 
-            # Append data
             all_books_details.append({
                 "Title": title,
                 "Price": price,
                 "Availability": availability,
+                "Rating": rating,
                 "Description": description,
                 "Category": category,
                 "UPC": upc,
@@ -75,7 +87,6 @@ for page in range(1, 4):
 
     time.sleep(1)
 
-# Save to CSV
 df = pd.DataFrame(all_books_details)
-df.to_csv("Books_details.csv", index=False)
-print("📁 Saved to Books_details.csv")
+df.to_csv("All_Books_details2.csv", index=False)
+print("📁 Saved to All_Books_details2.csv")
